@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>flaskChat</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+
+        <script>
+            $(document).ready(function(){ 
+                $("#SendButton").click(function(){
+                    console.log("click");
+                });
+            });
+
+            var socket = io.connect('http://' + document.domain + ':' + location.port);
+            socket.on('connect', function() {
+                socket.emit('my event', {data: 'I\'m connected!'});
+            });
+        </script>
+    </head>
+    <body>
+        <div>
+            <label for="ChatArea">
+                <textarea name="ChatArea" id="ChatArea" cols="30" rows="10" readonly></textarea>
+            </label>
+            <br>
+            <label for="InputString">
+                <input type="text" name="InputString" id="InputString">
+            </label>
+            <label for="SendButton">
+                <input type="button" id="SendButton" value="SendButton">
+            </label>
+    </div>
+    </body>
+</html>
