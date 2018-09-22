@@ -19,6 +19,12 @@
                 socket.emit('connectEvent', {data: 'I\'m connected!'});
             });
 
+            socket.on('connectResponce', function(chatLog){
+                console.log(chatLog);
+                console.log("con resp");
+                $('#ChatArea').val(chatLog);
+            })
+
             socket.on('responce', function(msg){
                 console.log(msg);
                 $("#ChatArea").val( $("#ChatArea").val() + "\n" + msg);
