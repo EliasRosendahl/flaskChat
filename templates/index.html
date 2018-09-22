@@ -21,6 +21,7 @@
 
             socket.on('responce', function(msg){
                 console.log(msg);
+                $("#ChatArea").val( $("#ChatArea").val() + "\n" + msg);
             });
         </script>
     </head>
