@@ -7,15 +7,20 @@
         <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
 
         <script>
+            var socket = io.connect('http://' + document.domain + ':' + location.port);
             $(document).ready(function(){ 
                 $("#SendButton").click(function(){
-                    console.log("click");
+                    var input = $('#InputString').val();
+                    socket.emit('message', {msg: input});
                 });
             });
-
-            var socket = io.connect('http://' + document.domain + ':' + location.port);
+            
             socket.on('connect', function() {
-                socket.emit('my event', {data: 'I\'m connected!'});
+                socket.emit('connectEvent', {data: 'I\'m connected!'});
+            });
+
+            socket.on('responce', function(msg){
+                console.log(msg);
             });
         </script>
     </head>

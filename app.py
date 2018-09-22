@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from flask_socketio import SocketIO
+from flask_socketio import SocketIO, emit, send
 
 app = Flask(__name__)
 
@@ -10,9 +10,9 @@ socketio = SocketIO(app)
 def index():
     return render_template("index.html")
 
-@socketio.on("my event")
+@socketio.on("message")
 def handle_event(json):
-    pass
+    emit("responce", json['msg'], broadcast=True)
 
 
 if __name__ == "__main__":
