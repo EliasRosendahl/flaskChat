@@ -12,6 +12,7 @@
                 $("#SendButton").click(function(){
                     var input = $('#InputString').val();
                     socket.emit('message', {msg: input});
+                    $('#InputString').val("");
                 });
             });
             
