@@ -1,10 +1,11 @@
 from flask import Flask, render_template
 from flask_socketio import SocketIO, emit, send
 
+from flaskChat.chatLog import ChatLog
+
 app = Flask(__name__)
 socketio = SocketIO(app)
 
-chatLog = ""
 
 
 @app.route("/")
@@ -14,13 +15,11 @@ def index():
 
 @socketio.on("connectEvent")
 def handle_new_connection(json):
-    global chatLog
-    emit("connectResponce", chatLog)
+    emit("connectResponce", ChatLog.read())
 
 @socketio.on("message")
 def handle_event(json):
-    global chatLog
-    chatLog += json['msg'] + "\n"
+    ChatLog.append(json['msg'])
     emit("responce", json['msg'], broadcast=True)
 
 
