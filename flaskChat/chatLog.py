@@ -13,4 +13,6 @@ class ChatLog(object):
     @staticmethod
     def read():
         #Return last 5 elements
+        if len(ChatLog.log) == 0:
+            return ""
         return "\n".join(ChatLog.log)+"\n"
