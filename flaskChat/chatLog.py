@@ -7,12 +7,11 @@ class ChatLog(object):
 
     @staticmethod
     def append(msg):
-        ChatLog.log.append(msg)
+        if msg != "" and msg != "\n":
+            ChatLog.log.append(msg)
 
 
     @staticmethod
     def read():
         #Return last 5 elements
-        if len(ChatLog.log) == 0:
-            return ""
-        return "\n".join(ChatLog.log)+"\n"
+        return "\n".join(ChatLog.log)
