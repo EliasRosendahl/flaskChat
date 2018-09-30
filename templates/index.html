@@ -6,42 +6,7 @@
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
         <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
 
-        <script>
-            var socket = io.connect('http://' + document.domain + ':' + location.port);
-            $(document).ready(function(){ 
-                $("#SendButton").click(function(){
-                    var input = $('#InputString').val();
-                    if(input !== ""){
-                        socket.emit('message', {msg: input});
-                        $('#InputString').val("");
-                    }
-                });
-            });
-            
-            socket.on('connect', function() {
-                socket.emit('connectEvent', {data: 'I\'m connected!'});
-            });
-
-            socket.on('connectResponce', function(chatLog){
-                console.log(chatLog);
-                console.log("con resp");
-                $('#ChatArea').val(chatLog);
-            })
-
-            socket.on('responce', function(msg){
-                console.log(msg);
-                if(msg !== ""){
-                    if($("#ChatArea").val() === "\n"){
-                    console.log("It's e");
-                    $("#ChatArea").val(msg);                    
-                    }
-                    else{
-                        $("#ChatArea").val( $("#ChatArea").val() + "\n" + msg);
-                    }    
-                }
-                
-            });
-        </script>
+        <script type="text/javascript" src="{{url_for('static', filename='msgHandler.js')}}"></script>
     </head>
     <body>
         <div class="content">
