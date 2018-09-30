@@ -1,16 +1,16 @@
 import unittest
+import collections
 
 from flaskChat.chatLog import ChatLog
 
 class test_ChatLog(unittest.TestCase):
     def setUp(self):
         self.testString = "test"
-        self.largeTestString = "test\ntest\ntest\ntest\ntest\ntest\ntest\ntest"
-
     def test_append_to_chat(self):
-        ChatLog.append(self.largeTestString)
-        self.assertEqual(ChatLog.chatLogStr, "test\ntest\ntest\ntest")
+        for i in range(10):
+            ChatLog.append(self.testString + str(i))
+        self.assertEqual(ChatLog.read(), "test5\ntest6\ntest7\ntest8\ntest9\n")
 
     def test_read_from_chat(self):
-        ChatLog.chatLogStr = self.testString
-        self.assertEqual(ChatLog.read(), self.testString)
+        ChatLog.log = collections.deque(["foo", "bar"])
+        self.assertEqual(ChatLog.read(), "foo\nbar\n")
