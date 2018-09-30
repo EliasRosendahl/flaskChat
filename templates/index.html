@@ -11,8 +11,10 @@
             $(document).ready(function(){ 
                 $("#SendButton").click(function(){
                     var input = $('#InputString').val();
-                    socket.emit('message', {msg: input});
-                    $('#InputString').val("");
+                    if(input !== ""){
+                        socket.emit('message', {msg: input});
+                        $('#InputString').val("");
+                    }
                 });
             });
             
@@ -28,7 +30,16 @@
 
             socket.on('responce', function(msg){
                 console.log(msg);
-                $("#ChatArea").val( $("#ChatArea").val() + "\n" + msg);
+                if(msg !== ""){
+                    if($("#ChatArea").val() === "\n"){
+                    console.log("It's e");
+                    $("#ChatArea").val(msg);                    
+                    }
+                    else{
+                        $("#ChatArea").val( $("#ChatArea").val() + "\n" + msg);
+                    }    
+                }
+                
             });
         </script>
     </head>
